@@ -21,5 +21,5 @@ func main() {
 	db.Initialize("user", "password", "database")
 	router.Use(ApiMiddleware(db.DB))
 	routes.InitRoutes(router)
-	router.Run(":8080")
+	router.Run(":3003")
 }
