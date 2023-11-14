@@ -37,6 +37,18 @@ services:
       service: base
     ports:
       - 3001:3001
+  deno-api:
+    image: deno-api
+    container_name: deno-api
+    build:
+      context: ./deno-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3002:3002
   koa-api:
     image: koa-api
     container_name: koa-api
