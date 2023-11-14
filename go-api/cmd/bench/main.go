@@ -16,7 +16,7 @@ func ApiMiddleware(db *sql.DB) gin.HandlerFunc {
 }
 
 func main() {
-	router := gin.Default()
+	router := gin.New()
 	db := db.DB{}
 	db.Initialize("user", "password", "database")
 	router.Use(ApiMiddleware(db.DB))
