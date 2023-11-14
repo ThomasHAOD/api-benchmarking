@@ -1,0 +1,15 @@
+{
+  "name": "api-benchmarking",
+  "version": "1.0.0",
+  "description": "Run `docker compose up`",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test:koa": "docker run  -v $(pwd)/test:/home/node/artillery/test artilleryio/artillery run --variables '{\"target\":\"http://host.docker.internal:3004\"}' test/artillery_script.yaml",
+    "test:node": "docker run  -v $(pwd)/test:/home/node/artillery/test artilleryio/artillery run --variables '{\"target\":\"http://host.docker.internal:3001\"}' test/artillery_script.yaml"
+  },
+  "author": "",
+  "license": "ISC"
+}
