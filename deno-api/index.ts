@@ -8,17 +8,19 @@ const client = new Client({
    port: 54321,
 })
 await client.connect()
-const handler = async (_request: Request): Promise<Response> => {
-   const { rows } = await client.queryArray('SELECT * FROM drivers')
-   const json = JSON.stringify(rows);
+const handler = async (request: Request): Promise<Response> => {
+   const url = new URL(request.url);
 
+   if (url.pathname === "/") {
+      return new Response("Hello World!");
+   }
 
-   return new Response(json, {
-      status: 200,
-      headers: {
-         "content-type": "application/json",
-      },
-   });
+   if (url.pathname === "/drivers") {
+      const { rows } = await client.queryArray('SELECT * FROM drivers')
+      const json = JSON.stringify(rows);
+      return new Response(json);
+   }
+   return new Response("Not Found", { status: 404 });
 };
 
 serve(handler);
