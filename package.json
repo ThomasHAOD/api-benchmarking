@@ -10,7 +10,8 @@
     "report": "npm run artillery -- report -o test/report.html test/report.json && open -a 'Google Chrome' test/report.html",
     "postreport": "rm test/report.json test/report.html",
     "test:koa":  "npm run artillery -- run --variables '{\"targetPort\":\"3004\"}' -o test/report.json test/artillery_script.yaml",
-    "test:node": "npm run artillery -- run --variables '{\"targetPort\":\"3001\"}' -o test/report.json test/artillery_script.yaml"
-    "test:bun":  "npm run artillery -- run --variables '{\"targetPort\":\"3000\"}' -o test/report.json test/artillery_script.yaml"
+    "test:node": "npm run artillery -- run --variables '{\"targetPort\":\"3001\"}' -o test/report.json test/artillery_script.yaml",
+    "test:bun":  "npm run artillery -- run --variables '{\"targetPort\":\"3000\"}' -o test/report.json test/artillery_script.yaml",
+    "test:deno":  "npm run artillery -- run --variables '{\"targetPort\":\"3002\"}' -o test/report.json test/artillery_script.yaml"
   }
 }
