@@ -61,3 +61,15 @@ services:
       service: base
     ports:
       - 3004:3004
+  go-api:
+    image: go-api
+    container_name: go-api
+    build:
+      context: ./go-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3003:3003
