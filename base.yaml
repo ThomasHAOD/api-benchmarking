@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  base:
+    environment:
+      - PGUSER=user
+      - PGPASSWORD=password
+      - PGDATABASE=database
+      - PGHOST=host.docker.internal
+      - PGPORT=54321
