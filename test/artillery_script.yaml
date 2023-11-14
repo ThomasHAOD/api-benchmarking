@@ -1,15 +1,17 @@
 config:
-  target: "{{ target }}"
+  target: "http://host.docker.internal:{{ targetPort }}"
   phases:
     - duration: 30
       arrivalRate: 50
       maxVusers: 50
   plugins:
     metrics-by-endpoint:
-      # Group metrics by request name rather than URL:
       useOnlyRequestNames: true
 scenarios:
   - flow:
+      - get:
+          url: "/echo?dxlxgwacmh=rpmfwkwkiy&xccemrxtyq=prfxpozvfd&otbcpgrhjt=exvbleanzv&dhxyiocqzz=bdajucgohs&boggufmgos=ogqimmyiti&xztfjdprxs=jgnliuuzyl&wbumfppuxt=lvcvfmbnix&djcypninkl=wajtltdjvi&siidwhnwzb=gpsaobnqdh&rdbznnfite=nnhxtwrhnb"
+          name: GET /echo long query
       - get:
           url: "/echo?asd=asd&henry=caville"
           name: GET /echo
