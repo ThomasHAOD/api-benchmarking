@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  go-api:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    command: go run ./cmd/bench/main.go

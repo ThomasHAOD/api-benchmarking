@@ -14,7 +14,7 @@ type DB struct {
 
 func (db *DB) Initialize(user, password, dbname string) {
 	connectionString :=
-		fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable port=54321", user, password, dbname)
+		fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable host=host.docker.internal port=54321", user, password, dbname)
 
 	var err error
 	db.DB, err = sql.Open("postgres", connectionString)
