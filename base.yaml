@@ -1,14 +1,14 @@
-version: '3.8'
+version: "3.8"
 
 services:
   base:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
-          memory: 100M
+          cpus: "0.50"
+          memory: 1000M
         reservations:
-          cpus: '0.50'
+          cpus: "0.50"
           memory: 100M
       restart_policy:
         condition: on-failure
