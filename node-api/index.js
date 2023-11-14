@@ -12,7 +12,7 @@ const connect = async () => {
   await client.connect();
 };
 connect();
-const hostname = '127.0.0.1';
+const hostname = 'localhost';
 const port = 3001;
 
 const server = http.createServer(async (req, res) => {

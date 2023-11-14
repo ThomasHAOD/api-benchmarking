@@ -13,42 +13,39 @@ services:
       - POSTGRES_DB=database
     ports:
       - 54321:5432
-  # node-api:
-  #   image: node-api
-  #   container_name: node-api
-  #   build:
-  #     context: ./node-api
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - db
-  #   extends:
-  #     file: base.yaml
-  #     service: base
-  #   ports:
-  #     - 3001:3001
-  # bun-api:
-  #   image: bun-api
-  #   container_name: bun-api
-  #   build:
-  #     context: ./bun-api
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - db
-  #   extends:
-  #     file: base.yaml
-  #     service: base
-  #   ports:
-  #     - 3000:3000
-  # deno-api:
-  #   image: deno-api
-  #   container_name: deno-api
-  #   build:
-  #     context: ./deno-api
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - db
-  #   extends:
-  #     file: base.yaml
-  #     service: base
-  #   ports:
-  #     - 8000:8000
+  bun-api:
+    image: bun-api
+    container_name: bun-api
+    build:
+      context: ./bun-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3000:3000
+  node-api:
+    image: node-api
+    container_name: node-api
+    build:
+      context: ./node-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3001:3001
+  koa-api:
+    image: koa-api
+    container_name: koa-api
+    build:
+      context: ./koa-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3004:3004

@@ -2,6 +2,17 @@ version: '3.8'
 
 services:
   base:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
+        reservations:
+          cpus: '0.50'
+          memory: 100M
+      restart_policy:
+        condition: on-failure
+        window: 5s
     environment:
       - PGUSER=user
       - PGPASSWORD=password

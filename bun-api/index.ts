@@ -1,10 +1,10 @@
 import { Client } from 'pg'
 const client = new Client({
-   user: 'user',
-   password: 'password',
-   database: 'database',
-   host: 'localhost',
-   port: 54321,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
 })
 await client.connect()
 

@@ -3,16 +3,18 @@ const Router = require('@koa/router');
 const { koaBody } = require('koa-body')
 const { Client } = require('pg');
 
+const port = 3004;
 const app = new Koa();
 const router = new Router();
 
 const client = new Client({
-  user: 'user',
-  password: 'password',
-  database: 'database',
-  host: 'localhost',
-  port: 54321,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
 });
+
 const connect = async () => {
   await client.connect();
 };
@@ -38,4 +40,5 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(3004);
+app.listen();
+console.log(`Listening on http://localhost:${port}`);
