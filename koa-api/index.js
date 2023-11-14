@@ -40,5 +40,6 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen();
-console.log(`Listening on http://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
+});
