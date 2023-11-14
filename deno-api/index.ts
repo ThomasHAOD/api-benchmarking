@@ -16,16 +16,29 @@ const handler = async (request: Request): Promise<Response> => {
    if (url.pathname === "/") {
       return new Response("Hello World!");
    }
-   if (url.pathname === "/echo") {
-      console.log(url);
+   if (request.method === 'GET' && url.pathname === "/echo") {
+      const params = url.search.substring(1);
+      const splitParams = params.split('&');
+      const paramsObj: { [key: string]: string } = {};
+      splitParams.forEach((param) => {
+         const [key, value] = param.split('=');
+         paramsObj[key] = value;
+      });
 
-      const params = new URLSearchParams(url.search);
 
-      const body = JSON.stringify(params)
+      const body = JSON.stringify(paramsObj)
       return new Response(body);
    }
+   if (request.method === 'POST' && url.pathname === "/echo") {
+      console.log(url);
 
-   if (url.pathname === "/drivers") {
+      const reqBody = request.json();
+      const resBody = JSON.stringify(reqBody)
+
+      return new Response(resBody);
+   }
+
+   if (url.pathname === "/etl") {
       const { rows } = await client.queryArray('SELECT * FROM drivers')
       const json = JSON.stringify(rows);
       return new Response(json);
