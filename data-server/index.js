@@ -22,24 +22,64 @@ const parseData = async () => {
     parsedData.name = file;
     return parsedData;
   });
-  const parsedData = filesDataArray.map((fileData) => {
-    return {
-      name: fileData.name,
-      responseTime: fileData.aggregate.summaries['http.response_time'].median,
-    };
-  });
-  console.log(parsedData);
-  const chartData = {
-    labels: parsedData.map((data) => data.name),
-    datasets: [
-      {
-        label: 'Median HTTP Response Time',
-        data: parsedData.map((data) => data.responseTime),
-        borderWidth: 1,
-      },
-    ],
+
+  const chartsKV = {
+    'http.response_time': 'Http Response Time',
+    'plugins.metrics-by-endpoint.response_time.GET /echo long query':
+      'Get Echo Long Query Response Time',
+    'plugins.metrics-by-endpoint.response_time.GET /echo':
+      'Get Echo Response Time',
+    'plugins.metrics-by-endpoint.response_time.POST /echo':
+      'Post Echo Response Time',
+    'plugins.metrics-by-endpoint.response_time.GET /etl':
+      'Get ETL Response Time',
   };
-  console.log(chartData);
+  const chartData = {};
+  for (const key in chartsKV) {
+    const parsedData = filesDataArray.map((fileData) => {
+      return {
+        name: fileData.name.split('.')[0],
+        median: fileData.aggregate.summaries[key].median,
+        mean: fileData.aggregate.summaries[key].mean,
+        min: fileData.aggregate.summaries[key].min,
+        max: fileData.aggregate.summaries[key].max,
+        count: fileData.aggregate.summaries[key].count,
+      };
+    });
+
+    console.log(parsedData);
+    chartData[key] = {
+      labels: parsedData.map((data) => data.name),
+      datasets: [
+        {
+          label: 'Median',
+          data: parsedData.map((data) => data.median),
+          borderWidth: 1,
+        },
+        {
+          label: 'Mean',
+          data: parsedData.map((data) => data.mean),
+          borderWidth: 1,
+        },
+        {
+          label: 'Min',
+          data: parsedData.map((data) => data.min),
+          borderWidth: 1,
+        },
+        {
+          label: 'Max',
+          data: parsedData.map((data) => data.max),
+          borderWidth: 1,
+        },
+        {
+          label: 'Count',
+          data: parsedData.map((data) => data.count),
+          borderWidth: 1,
+        },
+      ],
+    };
+    console.log(chartData);
+  }
 
   return chartData;
 };
