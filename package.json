@@ -13,6 +13,7 @@
     "test:go": "npm run artillery -- run --variables '{\"targetPort\":\"3003\"}' -o test/reports/go.json test/artillery_script.yaml",
     "test:node": "npm run artillery -- run --variables '{\"targetPort\":\"3001\"}' -o test/reports/node.json test/artillery_script.yaml",
     "test:bun": "npm run artillery -- run --variables '{\"targetPort\":\"3000\"}' -o test/reports/bun.json test/artillery_script.yaml",
-    "test:deno": "npm run artillery -- run --variables '{\"targetPort\":\"3002\"}' -o test/reports/deno.json test/artillery_script.yaml"
+    "test:deno": "npm run artillery -- run --variables '{\"targetPort\":\"3002\"}' -o test/reports/deno.json test/artillery_script.yaml",
+    "test:python": "npm run artillery -- run --variables '{\"targetPort\":\"3006\"}' -o test/reports/deno.json test/artillery_script.yaml"
   }
 }

@@ -14,13 +14,14 @@ Run `docker compose up`
 Connect to DB on `localhost:54321`
 Username: `user`
 Password: `password`
+
 ### API URLs
 - Bun - localhost:3000
 - Node - localhost:3001
 - Deno - localhost:3002
 - Golang - localhost:3003
 - Koa - localhost:3004
-
+- Python - localhost:3006
 ## Running Artillery 
 
 ### Run against APIs
@@ -29,6 +30,7 @@ Password: `password`
 - ```npm run test:deno```
 - ```npm run test:go```
 - ```npm run test:koa```
+- ```npm run test:python```
 ### Generate report
  - ```npm run report```
   
