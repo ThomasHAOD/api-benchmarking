@@ -3,6 +3,7 @@ use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Method, Request, Response, Server, StatusCode};
 use queryst::parse;
 use serde::Deserialize;
+use std::env;
 use tokio_postgres::{Error, NoTls};
 #[derive(Clone, Debug, Deserialize, serde::Serialize)]
 struct Driver {
@@ -16,9 +17,15 @@ struct Driver {
     url: String,
 }
 async fn get_drivers() -> Result<String, Error> {
-    let (client, connection) =
-        tokio_postgres::connect("postgresql://user:password@localhost:54321/database", NoTls)
-            .await?;
+    let conn_string: String = format!(
+        "postgresql://{}:{}@{}:{}/{}",
+        env::var("PGUSER").unwrap(),
+        env::var("PGPASSWORD").unwrap(),
+        env::var("PGHOST").unwrap(),
+        env::var("PGPORT").unwrap(),
+        env::var("PGDATABASE").unwrap()
+    );
+    let (client, connection) = tokio_postgres::connect(&conn_string, NoTls).await?;
 
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
