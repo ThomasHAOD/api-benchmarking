@@ -73,3 +73,15 @@ services:
       service: base
     ports:
       - 3003:3003
+  rust-api:
+    image: rust-api
+    container_name: rust-api
+    build:
+      context: ./rust-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3005:3005
