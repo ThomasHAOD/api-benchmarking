@@ -85,3 +85,15 @@ services:
       service: base
     ports:
       - 3005:3005
+  python-api:
+    image: python-api
+    container_name: python-api
+    build:
+      context: ./python-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3006:3006
