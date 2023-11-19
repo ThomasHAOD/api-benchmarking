@@ -49,18 +49,6 @@ services:
       service: base
     ports:
       - 3002:3002
-  koa-api:
-    image: koa-api
-    container_name: koa-api
-    build:
-      context: ./koa-api
-    depends_on:
-      - db
-    extends:
-      file: base.yaml
-      service: base
-    ports:
-      - 3004:3004
   go-api:
     image: go-api
     container_name: go-api
@@ -73,6 +61,18 @@ services:
       service: base
     ports:
       - 3003:3003
+  koa-api:
+    image: koa-api
+    container_name: koa-api
+    build:
+      context: ./koa-api
+    depends_on:
+      - db
+    extends:
+      file: base.yaml
+      service: base
+    ports:
+      - 3004:3004
   rust-api:
     image: rust-api
     container_name: rust-api

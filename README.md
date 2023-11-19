@@ -21,6 +21,7 @@ Password: `password`
 - Deno - localhost:3002
 - Golang - localhost:3003
 - Koa - localhost:3004
+- Rust - localhost:3005
 - Python - localhost:3006
 ## Running Artillery 
 
@@ -30,6 +31,7 @@ Password: `password`
 - ```npm run test:deno```
 - ```npm run test:go```
 - ```npm run test:koa```
+- ```npm run test:rust```
 - ```npm run test:python```
 ### Generate report
  - ```npm run report```

@@ -1,10 +1,11 @@
 #![deny(warnings)]
+use chrono::NaiveDate;
 use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Method, Request, Response, Server, StatusCode};
 use queryst::parse;
 use serde::Deserialize;
 use std::env;
-use tokio_postgres::{Error, NoTls};
+use tokio_postgres::{Error, NoTls}; //
 #[derive(Clone, Debug, Deserialize, serde::Serialize)]
 struct Driver {
     driver_id: i32,
@@ -13,9 +14,11 @@ struct Driver {
     code: Option<String>,
     forename: String,
     surname: String,
+    dob: Option<NaiveDate>,
     nationality: Option<String>,
     url: String,
 }
+
 async fn get_drivers() -> Result<String, Error> {
     let conn_string: String = format!(
         "postgresql://{}:{}@{}:{}/{}",
@@ -27,15 +30,28 @@ async fn get_drivers() -> Result<String, Error> {
     );
     let (client, connection) = tokio_postgres::connect(&conn_string, NoTls).await?;
 
-    // The connection object performs the actual communication with the database,
-    // so spawn it off to run on its own.
     tokio::spawn(async move {
         if let Err(e) = connection.await {
             eprintln!("connection error: {}", e);
         }
     });
     let rows: Vec<tokio_postgres::Row> = client.query("SELECT * FROM drivers", &[]).await?;
-    let drivers: Vec<Driver> = serde_postgres::from_rows(&rows).unwrap();
+    let mut drivers = Vec::new();
+
+    for row in rows {
+        let driver = Driver {
+            driver_id: row.get("driver_id"),
+            driver_ref: row.get("driver_ref"),
+            number: row.get("number"),
+            code: row.get("code"),
+            forename: row.get("forename"),
+            surname: row.get("surname"),
+            dob: row.get("dob"),
+            nationality: row.get("nationality"),
+            url: row.get("url"),
+        };
+        drivers.push(driver);
+    }
     Ok(serde_json::to_string(&drivers).unwrap())
 }
 
