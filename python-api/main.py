@@ -1,6 +1,7 @@
 import flask
 from flask import request, jsonify
 import psycopg2
+import psycopg2.extras
 import os
 app = flask.Flask(__name__)
 
@@ -24,9 +25,10 @@ def etl():
                             user=USER,
                             password=PASSWORD,
                             port=PORT)
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("SELECT * FROM drivers")
-    return jsonify(cursor.fetchall())
+    res = cursor.fetchall()
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3006)
